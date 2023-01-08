@@ -49,7 +49,8 @@ int hyperplane_dom(point_t *p_i, point_t *p_j, vector<point_t *> ext_pts);
 void sql_pruning(point_set* P, vector<int>& C_idx, vector<point_t*>& ext_vec, double& rr, int stop_option, int dom_option);
 
 // use the branch-and-bound skyline (BBS) algorithm for maintaining the candidate set
-void rtree_pruning(point_set* P, vector<int>& C_idx, vector<point_t*>& ext_vec, double& rr,  int stop_option, int dom_option);
+void rtree_pruning(point_set* P, vector<int>& C_idx, vector<point_t*>& ext_vec, double& rr,
+                   int stop_option, int dom_option, hyperplane_set *R);
 
 /**
  * @brief Get an "exact" upper bound bound in O(|ext_pts|^2) time based on R

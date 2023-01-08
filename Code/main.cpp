@@ -13,13 +13,15 @@
 #include "Adaptive/adaptive.h"
 #include "Special/Tree.h"
 #include "General/General.h"
+#include "QuickSort/quicksort.h"
+#include "AR/ar.h"
 
 int main(int argc, char *argv[])
 {
     ifstream config("../config.txt");
-    char data_name[MAX_FILENAME_LENG]; double Para, selectRatio, differRatio; int mode;
-    config >> data_name >> Para >> selectRatio >> differRatio >> mode;
-    //cout << "  " << data_name << "  " << Para << "  " << selectRatio << "  " << differRatio << "  " << mode << "\n";
+    string AlgName; char data_name[MAX_FILENAME_LENG]; double Para, selectRatio, differRatio, probabilityError; int mode;
+    config >> data_name >> Para >> selectRatio >> differRatio >> probabilityError >> mode;
+    cout << data_name << "  " << Para << "  " << selectRatio << "  " << differRatio << "  " << probabilityError << "  " << mode << "\n";
     //initialization
     std::map<std::string, double> categorical_value;
     std::vector<std::string> categorical;
@@ -38,6 +40,7 @@ int main(int argc, char *argv[])
     for(int i = 0; i < dim_p; ++i)
         config >> up->attr[i];
     config.close();
+    up->print();
     point_t *ut = up->extract_num(d_num, d_new_attr);//for numerical attributes of tuples
     double u_range = 0;
     for (int i = 0; i < d_num; i++)
@@ -49,39 +52,42 @@ int main(int argc, char *argv[])
     printf("-----------------------------------------------------------------\n");
     printf("|%15s |%15s |%15s |%10s |\n", "Method", "# of Questions", "Time Cost", "Point #ID");
     printf("-----------------------------------------------------------------\n");
-    ground_truth(p_skyline, up); // look for the ground truth maximum utility point
+    double Maxvalue = ground_truth(p_skyline, up); // look for the ground truth maximum utility point
 
     double Csize;
     int Qcount = 0;
 
-    if (d_num <= 1)
-    {
-        //The SP-Tree Algorithm
-        special(t_skyline, ut->attr, categorical_value, Qcount);
-    }
 
-    //The GE-Graph algorithm
+    //Algorithm for special case
+    special(t_skyline, ut->attr, categorical_value, Qcount, mode);
+
+    //Algroithm for the general case
     general(t_skyline, ut->attr, categorical_value, 1, Qcount, Para, selectRatio, mode);
-
-    //The GE-Graph algorithm for the confidence study
     general_confidence(t_skyline, ut->attr, categorical_value, 1, Qcount, Para, selectRatio, differRatio, mode);
+    general_error(t_skyline, ut->attr, categorical_value, 1, Qcount, Para, selectRatio, differRatio, mode, Maxvalue);
 
     //The UH-Simplex algorithm
-    //max_utility(p_skyline, up, 2, 0.0, 11, Qcount, Csize, SIMPLEX, EXACT_BOUND, RTREE, HYPER_PLANE, mode);
+    max_utility(p_skyline, up, 2, 0.0, 1000, Qcount, Csize, SIMPLEX, EXACT_BOUND, RTREE, HYPER_PLANE, mode);
 
     //The UH-Random algorithm
     max_utility(p_skyline, up, 2, 0.0, 1000, Qcount, Csize, RANDOM, EXACT_BOUND, RTREE, HYPER_PLANE, mode);
 
-    //The ActiveRanking Algorithm
+    //Active-Ranking Algorithm
     Active_Ranking(p_skyline, up, Qcount, mode);
 
-    //The Adaptive Algorithm
+    //Adaptive Algorithm
     Adaptive(p_skyline, up, Qcount, mode);
 
-    //The Adaptive Algorithm
+    //Adaptive Algorithm
     Adaptive_prune(p_skyline, up, Qcount, mode);
 
+    //The QuickSort Algorithm
+    quicksort(p_skyline, up, Qcount, mode);
 
-    delete p_skyline;
+    //The AR Algorithm
+    ar(p_skyline, up, Qcount, mode);
+
+
+    //delete p_skyline;
     return 0;
 }

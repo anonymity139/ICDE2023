@@ -4,15 +4,20 @@
 // P: the input car set
 // C_idx: the indexes of the current candidate favorite car in P
 // ext_vec: the set of extreme vecotr
-int get_current_best_pt(point_set* P, vector<int>& C_idx, vector<point_t*>& ext_vec)
+int get_current_best_pt(point_set* P, vector<int>& C_idx, vector<point_t*>& ext_vec, hyperplane_set *R)
 {
 	int dim = P->points[0]->d;
 
 	// the set of extreme points of the candidate utility range R
 	vector<point_t*> ext_pts;
-	ext_pts = get_extreme_pts(ext_vec);
+	//ext_pts = get_extreme_pts(ext_vec);
+    for(int i = 0; i < R->ext_pts.size(); ++i)
+    {
+        ext_pts.push_back(new point_t(R->ext_pts[i]));
+    }
 
-	// use the "mean" utility vector in R (other strategies could also be used)
+
+    // use the "mean" utility vector in R (other strategies could also be used)
 	point_t* mean = new point_t(dim);
 	for(int i = 0; i < dim; i++)
 	{
@@ -258,7 +263,9 @@ void update_ext_vec(point_set* P, vector<int>& C_idx, point_t* u, int s, vector<
 		delete tmp;
 		ext_vec.push_back(new_ext_vec);
 	}
-    R->set_ext_pts(1);
+    if(!R->set_ext_pts(1))
+        ext_vec.pop_back();
+
 
 	// directly remove the non-favorite car from the candidate set
 	vector<int> newC_idx;
@@ -318,7 +325,7 @@ point_t* max_utility(point_set* P, point_t* u, int s,  double epsilon, int maxRo
 
 	// get the index of the "current best" point
 	//if(cmp_option != RANDOM)
-	current_best_idx = get_current_best_pt(P, C_idx, ext_vec);
+	current_best_idx = get_current_best_pt(P, C_idx, ext_vec, R);
 
 	// Qcount - the number of querstions asked
 	// Csize - the size of the current candidate set
@@ -326,7 +333,7 @@ point_t* max_utility(point_set* P, point_t* u, int s,  double epsilon, int maxRo
 	double rr = 1;
 
 	// interactively reduce the candidate set and shrink the candidate utility range
-	while (C_idx.size()> 1 && (rr > epsilon  && !isZero(rr - epsilon)) && Qcount <  maxRound)  // while none of the stopping conditiong is true
+	while (C_idx.size()> 1 && (rr > epsilon  && !isZero(rr - epsilon)) && Qcount <  QcountBound)  // while none of the stopping conditiong is true
 	{
 		Qcount++;
 
@@ -339,13 +346,13 @@ point_t* max_utility(point_set* P, point_t* u, int s,  double epsilon, int maxRo
 		if(prune_option == SQL)
 			sql_pruning(P, C_idx, ext_vec, rr, stop_option, dom_option);
 		else
-			rtree_pruning(P, C_idx, ext_vec, rr, stop_option, dom_option);
+			rtree_pruning(P, C_idx, ext_vec, rr, stop_option, dom_option, R);
 
         Csize = C_idx.size();
         printMidResult(out_cp, Csize/totalSize * 100, Qcount, t1, mode);
 	}
 	// get the final result 
-	point_t* result = P->points[get_current_best_pt(P, C_idx, ext_vec)];
+	point_t* result = P->points[get_current_best_pt(P, C_idx, ext_vec, R)];
 	Csize = C_idx.size();
 
 	for (int i = 0; i < ext_vec.size(); i++)

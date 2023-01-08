@@ -6,7 +6,6 @@
  * @param pset 		The point set
  * @param u 		The utility vector
  * @param Qcount 	The number of question asked
- * @param max_value The largest utility w.r.t. u
  */
 void Active_Ranking(point_set *pset, point_t *u, int &Qcount, int mode)
 {
@@ -62,7 +61,7 @@ void Active_Ranking(point_set *pset, point_t *u, int &Qcount, int mode)
                     }
 
                     printMidResult(out_cp, 100, Qcount, t1, mode);
-                    if(Qcount >= 1000)
+                    if(Qcount >= QcountBound)
                     {
                         current_use[0]->printResult(out_cp, "ActiveRanking", Qcount, t1, mode);
                         out_cp.close();

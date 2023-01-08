@@ -236,9 +236,22 @@ void printMidResult(std::ofstream &out_cp, double Csize, int Qcount, timeval t1,
 {
     timeval t2; gettimeofday(&t2, 0);
     double time_cost = (double) t2.tv_sec + (double) t2.tv_usec / 1000000 - (double) t1.tv_sec - (double) t1.tv_usec / 1000000;
-    //std::cout << Qcount << "    " << Csize << "    " << time_cost << "\n";
     if(mode == 1)
-        out_cp << Qcount << "    " << Csize << "    " << time_cost << "\n";
+    {
+        std::cout << Qcount << "    " << Csize << "    " << time_cost << "\n";
+        if (Qcount == 1)
+            out_cp << Qcount << "    " << Csize << "    " << time_cost;
+        else
+            out_cp << "\n" << Qcount << "    " << Csize << "    " << time_cost;
+    }
+    if(time_cost > 10000)
+    {
+        out_cp << "Time Out \n";
+        out_cp.close();
+        exit(0);
+    }
+
+
 }
 
 

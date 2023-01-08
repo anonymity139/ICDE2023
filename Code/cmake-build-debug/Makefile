@@ -57,10 +57,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/regret_categorical/2022-10_ICDE(2023)/upload/Code"
+CMAKE_SOURCE_DIR = "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/Code"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/regret_categorical/2022-10_ICDE(2023)/upload/Code/cmake-build-debug"
+CMAKE_BINARY_DIR = "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/Code/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/regret_categorical/2022-10_ICDE(2023)/upload/Code/cmake-build-debug/CMakeFiles" "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/regret_categorical/2022-10_ICDE(2023)/upload/Code/cmake-build-debug//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/Code/cmake-build-debug/CMakeFiles" "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/Code/cmake-build-debug//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/regret_categorical/2022-10_ICDE(2023)/upload/Code/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/wangweicheng/Dropbox/My Mac (王伟程的MacBook Pro)/Desktop/Code/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,30 @@ run: cmake_check_build_system
 run/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
 .PHONY : run/fast
+
+AR/ar.o: AR/ar.cpp.o
+.PHONY : AR/ar.o
+
+# target to build an object file
+AR/ar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/AR/ar.cpp.o
+.PHONY : AR/ar.cpp.o
+
+AR/ar.i: AR/ar.cpp.i
+.PHONY : AR/ar.i
+
+# target to preprocess a source file
+AR/ar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/AR/ar.cpp.i
+.PHONY : AR/ar.cpp.i
+
+AR/ar.s: AR/ar.cpp.s
+.PHONY : AR/ar.s
+
+# target to generate assembly for a file
+AR/ar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/AR/ar.cpp.s
+.PHONY : AR/ar.cpp.s
 
 ActiveRanking/active_ranking.o: ActiveRanking/active_ranking.cpp.o
 .PHONY : ActiveRanking/active_ranking.o
@@ -777,6 +801,30 @@ QuadProg/QuadProg++.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/QuadProg/QuadProg++.cc.s
 .PHONY : QuadProg/QuadProg++.cc.s
 
+QuickSort/quicksort.o: QuickSort/quicksort.cpp.o
+.PHONY : QuickSort/quicksort.o
+
+# target to build an object file
+QuickSort/quicksort.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/QuickSort/quicksort.cpp.o
+.PHONY : QuickSort/quicksort.cpp.o
+
+QuickSort/quicksort.i: QuickSort/quicksort.cpp.i
+.PHONY : QuickSort/quicksort.i
+
+# target to preprocess a source file
+QuickSort/quicksort.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/QuickSort/quicksort.cpp.i
+.PHONY : QuickSort/quicksort.cpp.i
+
+QuickSort/quicksort.s: QuickSort/quicksort.cpp.s
+.PHONY : QuickSort/quicksort.s
+
+# target to generate assembly for a file
+QuickSort/quicksort.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/QuickSort/quicksort.cpp.s
+.PHONY : QuickSort/quicksort.cpp.s
+
 Special/Tree.o: Special/Tree.cpp.o
 .PHONY : Special/Tree.o
 
@@ -1314,6 +1362,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... run"
+	@echo "... AR/ar.o"
+	@echo "... AR/ar.i"
+	@echo "... AR/ar.s"
 	@echo "... ActiveRanking/active_ranking.o"
 	@echo "... ActiveRanking/active_ranking.i"
 	@echo "... ActiveRanking/active_ranking.s"
@@ -1395,6 +1446,9 @@ help:
 	@echo "... QuadProg/QuadProg++.o"
 	@echo "... QuadProg/QuadProg++.i"
 	@echo "... QuadProg/QuadProg++.s"
+	@echo "... QuickSort/quicksort.o"
+	@echo "... QuickSort/quicksort.i"
+	@echo "... QuickSort/quicksort.s"
 	@echo "... Special/Tree.o"
 	@echo "... Special/Tree.i"
 	@echo "... Special/Tree.s"

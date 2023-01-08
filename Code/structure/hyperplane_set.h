@@ -24,7 +24,7 @@ public:
 
     void print();//print the information of the hyperplane set
 
-    void set_ext_pts(double u_range);//find all the extreme points of the hyperplane set, refine the bounded hyperplanes
+    bool set_ext_pts(double u_range);//find all the extreme points of the hyperplane set, refine the bounded hyperplanes
     void find_boundary(point_set *p_set, double u_range);
     bool is_top_geq(std::vector<double*> &pset, double *v);
     bool is_top_geq(std::vector< std::pair<double*, int>> &pset, double *v);

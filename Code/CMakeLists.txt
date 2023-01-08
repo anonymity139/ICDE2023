@@ -116,6 +116,8 @@ add_executable(run
         structure/L.cpp
         structure/L.h
         General/General.cpp
-        General/General.h)
+        General/General.h
+        QuickSort/quicksort.cpp
+        QuickSort/quicksort.h AR/ar.cpp AR/ar.h)
 
 target_link_libraries(run glpk)

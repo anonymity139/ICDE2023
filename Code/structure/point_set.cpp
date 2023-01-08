@@ -109,7 +109,6 @@ point_set::~point_set()
     {
         p = points[i-1];
         points.pop_back();
-        delete  p;
         i--;
     }
     points.clear();
@@ -121,7 +120,10 @@ point_set::~point_set()
 void point_set::print()
 {
     for (int i = 0; i < points.size(); i++)
+    {
+        std::cout << points[i]->id << "  ";
         points[i]->print();
+    }
     printf("\n");
 }
 
@@ -277,6 +279,40 @@ void point_set::prune(point_t *p)
             return;
         }
     }
+}
+
+
+/**
+ * @brief Sort the points based on their "value"
+ * @return
+ */
+point_set *point_set::sort_on_value()
+{
+    int size = points.size();
+    if(size <=0)
+        return NULL;
+    point_set *return_set = new point_set();
+    return_set->points.push_back(points[0]);
+    for (int i = 1; i < size; i++)
+    {
+        int left = 0, right = return_set->points.size() - 1;
+        //find the place for p_set[i] in return_point
+        //record the place index in "left"
+        while (left <= right)
+        {
+            int middle = (left + right) / 2;
+            if (points[i]->value > return_set->points[middle]->value)
+            {
+                right = middle - 1;
+            }
+            else
+            {
+                left = middle + 1;
+            }
+        }
+        return_set->points.insert(return_set->points.begin() + left, points[i]);
+    }
+    return return_set;
 }
 
 

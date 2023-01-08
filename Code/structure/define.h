@@ -73,6 +73,8 @@
 #define NO_BOUND 1
 #define EXACT_BOUND 2
 #define APPROX_BOUND 3
+#define QcountBound 999999
+
 
 //utility range
 #define U_RANGE 1000

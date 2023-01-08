@@ -21,6 +21,7 @@ public:
     void delete_same();//delete the same points, keep one left
     point_set* skyline();//compute the skyline set
     point_set* sort(point_t *u);//sort points based on their utility w.r.t. linear function u
+    point_set* sort_on_value();
     void prune(point_t *p);
 };
 

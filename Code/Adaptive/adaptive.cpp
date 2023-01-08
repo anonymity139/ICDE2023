@@ -427,7 +427,7 @@ void Adaptive(point_set *origset, point_t* u, int &Qcount, int mode)
 
     point_t *estimate_u = find_estimate(V);
     estimate_u->normalization();
-    while (accuracy < 0.99999 && Qcount < 1000 && de_accuracy > 0 )
+    while (accuracy < 0.99999 && Qcount < QcountBound && de_accuracy > 0 )
     {
         Qcount++;
         hyperplane *best = NULL;
@@ -583,7 +583,7 @@ void Adaptive_prune(point_set *origset, point_t* u, int &Qcount, int mode)
 
     point_t *estimate_u = find_estimate(V);
     estimate_u->normalization();
-    while (C->points.size() > 1 && accuracy < 0.99999 && Qcount < 1000 && de_accuracy > 0 )
+    while (C->points.size() > 1 && accuracy < 0.99999 && Qcount < QcountBound && de_accuracy > 0 )
     {
         Qcount++;
         hyperplane *best = NULL;
@@ -619,8 +619,6 @@ void Adaptive_prune(point_set *origset, point_t* u, int &Qcount, int mode)
         //R->print();
         C = R->Rdominate_prune(C);
         printMidResult(out_cp, C->points.size()/totalSize * 100, Qcount, t1, mode);
-        if(mode == 1 && Qcount > 10)
-            break;
     }
 
     int maxIdx = 0, size = origset->points.size();

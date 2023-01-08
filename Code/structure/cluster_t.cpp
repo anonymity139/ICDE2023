@@ -131,6 +131,7 @@ void cluster_t::print()
         //print tuples
         for(int j = 0; j < clusters[i]->tuples.size(); j++)
         {
+            std::cout << clusters[i]->tuples[j]->p->id << "  ";
             clusters[i]->tuples[j]->p->print();
             //clusters[i]->tuples[j]->print();
 

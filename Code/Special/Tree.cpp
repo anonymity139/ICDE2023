@@ -3,7 +3,7 @@
 #include "L.h"
 
 
-void special(tuple_set *t_set, double *u, std::map<std::string, double> &categorical_value, int &Qcount)
+void special(tuple_set *t_set, double *u, std::map<std::string, double> &categorical_value, int &Qcount, int mode)
 {
     timeval t1, t2;
     ofstream out_cp("../result.txt");
@@ -87,6 +87,8 @@ void special(tuple_set *t_set, double *u, std::map<std::string, double> &categor
                         if (isDelete[m])
                             LOrderAll.erase(LOrderAll.begin() + m);
                     }
+
+                    printMidResult(out_cp, t_count/totalSize * 100, Qcount, t1, mode);
                 }
             }
             //Delete unnecessary L
@@ -98,7 +100,7 @@ void special(tuple_set *t_set, double *u, std::map<std::string, double> &categor
     gettimeofday(&t2, 0);
     double time_cost = (double) t2.tv_sec + (double) t2.tv_usec / 1000000 - (double) t1.tv_sec - (double) t1.tv_usec / 1000000;
     printf("-----------------------------------------------------------------\n");
-    printf("|%15s |%15d |%15lf |%10d |\n", "Special", Qcount, time_cost, ctr->root->goforTuple()->id);
+    printf("|%15s |%15d |%15lf |%10d |\n", "SP-Tree", Qcount, time_cost, ctr->root->goforTuple()->id);
     printf("-----------------------------------------------------------------\n");
     out_cp.close();
 

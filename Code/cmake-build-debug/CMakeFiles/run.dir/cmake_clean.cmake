@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/run.dir/AR/ar.cpp.o"
+  "CMakeFiles/run.dir/AR/ar.cpp.o.d"
   "CMakeFiles/run.dir/ActiveRanking/active_ranking.cpp.o"
   "CMakeFiles/run.dir/ActiveRanking/active_ranking.cpp.o.d"
   "CMakeFiles/run.dir/Adaptive/adaptive.cpp.o"
@@ -53,6 +55,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/run.dir/QuadProg/Array.cc.o.d"
   "CMakeFiles/run.dir/QuadProg/QuadProg++.cc.o"
   "CMakeFiles/run.dir/QuadProg/QuadProg++.cc.o.d"
+  "CMakeFiles/run.dir/QuickSort/quicksort.cpp.o"
+  "CMakeFiles/run.dir/QuickSort/quicksort.cpp.o.d"
   "CMakeFiles/run.dir/Special/Tree.cpp.o"
   "CMakeFiles/run.dir/Special/Tree.cpp.o.d"
   "CMakeFiles/run.dir/UH/frame.cpp.o"

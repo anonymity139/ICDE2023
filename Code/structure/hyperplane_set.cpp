@@ -262,13 +262,13 @@ void hyperplane_set::print()
  *          true  R is the different
  *          false R is the same as before
  */
-void hyperplane_set::set_ext_pts(double u_range)
+bool hyperplane_set::set_ext_pts(double u_range)
 {
     int M = hyperplanes.size(), size = 0;
     if (M <= 0)
     {
         printf("%s\n", "Error: No hyperplane in the set.");
-        return ;
+        return false;
     }
     int dim = hyperplanes[0]->d;
     char file1[MAX_FILENAME_LENG];
@@ -281,7 +281,7 @@ void hyperplane_set::set_ext_pts(double u_range)
     {
         cout<<"The intersection is infeasible.\n";
         hyperplanes.pop_back();
-        return;
+        return false;
     }
     write(feasible_pt, file1);//write hyperplanes and the feasible point to file1,
 
@@ -354,6 +354,11 @@ void hyperplane_set::set_ext_pts(double u_range)
     else
         hyperplanes.pop_back();
     fclose(rPtr);
+
+    if(size < 0)
+        return false;
+    else
+        return true;
 
     //check whether the ext_pts has been renewed
     /*if(pset.size() != ext_pts.size())

@@ -711,7 +711,8 @@ void sql_pruning(point_set *P, vector<int> &C_idx, vector<point_t *> &ext_vec, d
 // rr: the upper bound of the regret ratio
 // stop_option: the stopping condition, which can be NO_BOUND, EXACT_BOUND and APPROX_BOUND
 // dom_option: the skyline options, which can be SQL or RTREE
-void rtree_pruning(point_set *P, vector<int> &C_idx, vector<point_t *> &ext_vec, double &rr, int stop_option, int dom_option)
+void rtree_pruning(point_set *P, vector<int> &C_idx, vector<point_t *> &ext_vec, double &rr, int stop_option,
+                   int dom_option, hyperplane_set *R)
 {
     if(C_idx.size() <= 1 )
         return;
@@ -722,7 +723,11 @@ void rtree_pruning(point_set *P, vector<int> &C_idx, vector<point_t *> &ext_vec,
 
     if (dom_option == HYPER_PLANE)
     {
-        ext_pts = get_extreme_pts(ext_vec); // in Hyperplane Pruning, we need the set of extreme points of R
+        for(int i = 0; i < R->ext_pts.size(); ++i)
+        {
+            ext_pts.push_back(new point_t(R->ext_pts[i]));
+        }
+        //ext_pts = get_extreme_pts(ext_vec); // in Hyperplane Pruning, we need the set of extreme points of R
     }
     else
     {
